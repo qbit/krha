@@ -16,7 +16,7 @@ iface = "org.kde.krunner1"
 
 class Runner(dbus.service.Object):
     def __init__(self):
-        dbus.service.Object.__init__(self, dbus.service.BusName("org.kde.krha", dbus.SessionBus()), objpath)
+        dbus.service.Object.__init__(self, dbus.service.BusName("dev.suah.krha", dbus.SessionBus()), objpath)
         self.api_key = os.environ.get("HA_API_KEY", "")
         self.ha_url = os.environ.get("HA_URL", "").rstrip('/')
 

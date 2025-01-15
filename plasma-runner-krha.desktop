@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=krha
-Comment=krha Runner written in Python
+Comment=krha a home assistant krunner
 X-KDE-ServiceTypes=Plasma/Runner
 Type=Service
 Icon=planetkde
@@ -8,8 +8,8 @@ X-KDE-PluginInfo-Author=%{AUTHOR}
 X-KDE-PluginInfo-Email=%{EMAIL}
 X-KDE-PluginInfo-Name=krha
 X-KDE-PluginInfo-Version=1.0
-X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-License=ISC
 X-KDE-PluginInfo-EnabledByDefault=true
 X-Plasma-API=DBus
-X-Plasma-DBusRunner-Service=org.kde.krha
+X-Plasma-DBusRunner-Service=dev.suah.krha
 X-Plasma-DBusRunner-Path=/krha
