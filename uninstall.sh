@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Exit if something fails
-set -e
+set -ex
 
 if [[ -z "$XDG_DATA_HOME" ]]; then
     prefix=~/.local/share
@@ -11,5 +11,5 @@ fi
 
 rm $prefix/krunner/dbusplugins/plasma-runner-krha.desktop
 rm $prefix/dbus-1/services/org.kde.krha.service
-kquitapp5 krunner
+kquitapp6 krunner
 

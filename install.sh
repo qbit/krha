@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Exit if something fails
-set -e
+set -ex
 
 
 if [[ -z "$XDG_DATA_HOME" ]]; then
@@ -13,8 +13,10 @@ fi
 mkdir -p $prefix/krunner/dbusplugins/
 mkdir -p $prefix/dbus-1/services/
 
+PY=$(which python3)
 cp plasma-runner-krha.desktop $prefix/krunner/dbusplugins/
 sed "s|/home/qbit/projects/krha/krha.py|${PWD}/krha.py|" "org.kde.krha.service" > $prefix/dbus-1/services/org.kde.krha.service
+sed "s|/usr/bin/python3|${PY}|" "org.kde.krha.service" > $prefix/dbus-1/services/org.kde.krha.service
 
-kquitapp5 krunner
+kquitapp6 krunner
 
