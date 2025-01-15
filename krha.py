@@ -1,6 +1,4 @@
-#! /usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 python3Packages.dbus-python python3Packages.pygobject3 python3Packages.requests
-
+#! /usr/bin/env python3
 import dbus.service
 from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GLib
@@ -19,7 +17,6 @@ iface = "org.kde.krunner1"
 class Runner(dbus.service.Object):
     def __init__(self):
         dbus.service.Object.__init__(self, dbus.service.BusName("org.kde.krha", dbus.SessionBus()), objpath)
-        # Load config from ~/.config/krunnerrc or environment variables
         self.api_key = os.environ.get("HA_API_KEY", "")
         self.ha_url = os.environ.get("HA_URL", "").rstrip('/')
 
@@ -44,7 +41,6 @@ class Runner(dbus.service.Object):
         
     @dbus.service.method(iface, out_signature='a(sss)')
     def Actions(self):
-        # id, text, icon
         return [("send", "Send to Home Assistant", "home")]
 
     @dbus.service.method(iface, in_signature='ss')
