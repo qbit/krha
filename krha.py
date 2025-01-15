@@ -27,18 +27,18 @@ class Runner(dbus.service.Object):
 
         command = query[3:]
         if not command:
-            return [("ha", "Home Assistant Commands", "home", 100, 1.0, 
+            return [("ha", "Home Assistant Commands", "home", 100, 1.0,
                      {'subtext': 'Type a command after "ha" to control Home Assistant'})]
 
         return [(
-            command,  # data
-            f"Send to Home Assistant: {command}",  # text
-            "home",  # icon
-            100,  # type
-            1.0,  # relevance
-            {'subtext': 'Press Enter to send command'}  # properties
+            command,
+            f"Send to Home Assistant: {command}",
+            "home",
+            100,
+            1.0,
+            {'subtext': 'Press Enter to send command'}
         )]
-        
+
     @dbus.service.method(iface, out_signature='a(sss)')
     def Actions(self):
         return [("send", "Send to Home Assistant", "home")]
@@ -49,12 +49,12 @@ class Runner(dbus.service.Object):
         if not self.api_key or not self.ha_url:
             print("Error: HA_API_KEY or HA_URL not configured")
             return
-        
+
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
         }
-        
+
         try:
             response = requests.post(
                 f"{self.ha_url}/api/conversation/process",
