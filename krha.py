@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-import dbus.service
+
+from configparser import ConfigParser
 from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GLib
-import requests
+import dbus.service
 import json
 import os
+import requests
 
 DBusGMainLoop(set_as_default=True)
 
@@ -17,8 +19,22 @@ iface = "org.kde.krunner1"
 class Runner(dbus.service.Object):
     def __init__(self):
         dbus.service.Object.__init__(self, dbus.service.BusName("dev.suah.krha", dbus.SessionBus()), objpath)
-        self.api_key = os.environ.get("HA_API_KEY", "")
-        self.ha_url = os.environ.get("HA_URL", "").rstrip('/')
+        config = ConfigParser()
+        config_path = os.path.expanduser('~/.config/krunnerrc')
+        config.read(config_path)
+
+        try:
+            self.api_key = config.get('Runners][HomeAssistant', 'api_key')
+        except:
+            self.api_key = os.environ.get("HA_API_KEY", "")
+
+        try:
+            self.ha_url = config.get('Runners][HomeAssistant', 'ha_url')
+        except:
+            self.ha_url = os.environ.get("HA_URL", "")
+
+        if self.ha_url:
+            self.ha_url = self.ha_url.rstrip('/')
 
     @dbus.service.method(iface, in_signature='s', out_signature='a(sssida{sv})')
     def Match(self, query: str):
